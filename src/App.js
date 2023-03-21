@@ -24,6 +24,88 @@ function App() {
                     </li>
                 </ul>
             </header>
+
+            <div className="content">
+                <h1>Все кроссовки</h1>
+
+                <div className="sneakers">
+                    <div className="card">
+                        <img className="cardImage" width={133}
+                             src={'/react-sneakers/img/sneakers/1.jpg'}
+                             alt="Nike Blazer Mid Suede" />
+                        <h5 className="cardHeading">Мужские Кроссовки Nike
+                            Blazer
+                            Mid Suede</h5>
+                        <div className="cardBottom">
+                            <div className="cardPrice">
+                                <span>Цена:</span>
+                                <b>12 999 руб.</b>
+                            </div>
+                            <button className="cardBtn">
+                                <img src={'/react-sneakers/img/btn-plus.svg'}
+                                     alt="Add to cart" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <img className="cardImage" width={133}
+                             src={'/react-sneakers/img/sneakers/2.jpg'}
+                             alt="Nike Air Max 270" />
+                        <h5 className="cardHeading">Мужские Кроссовки Nike Air
+                            Max
+                            270</h5>
+                        <div className="cardBottom">
+                            <div className="cardPrice">
+                                <span>Цена:</span>
+                                <b>12 999 руб.</b>
+                            </div>
+                            <button className="cardBtn">
+                                <img src={'/react-sneakers/img/btn-plus.svg'}
+                                     alt="Add to cart" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <img className="cardImage" width={133}
+                             src={'/react-sneakers/img/sneakers/3.jpg'}
+                             alt="Nike Blazer Mid Suede" />
+                        <h5 className="cardHeading">Мужские Кроссовки Nike
+                            Blazer
+                            Mid Suede</h5>
+                        <div className="cardBottom">
+                            <div className="cardPrice">
+                                <span>Цена:</span>
+                                <b>8 499 руб.</b>
+                            </div>
+                            <button className="cardBtn">
+                                <img src={'/react-sneakers/img/btn-plus.svg'}
+                                     alt="Add to cart" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <img className="cardImage" width={133}
+                             src={'/react-sneakers/img/sneakers/4.jpg'}
+                             alt="Puma X Aka Boku Future Rider" />
+                        <h5 className="cardHeading">Кроссовки Puma X Aka Boku
+                            Future
+                            Rider</h5>
+                        <div className="cardBottom">
+                            <div className="cardPrice">
+                                <span>Цена:</span>
+                                <b>8 999 руб.</b>
+                            </div>
+                            <button className="cardBtn">
+                                <img src={'/react-sneakers/img/btn-plus.svg'}
+                                     alt="Add to cart" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

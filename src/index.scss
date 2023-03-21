@@ -19,7 +19,7 @@ a {
 
 body {
   margin: 0;
-  font-family: system-ui;
+  font-family: 'Inter', system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e7f6ff;
@@ -78,6 +78,69 @@ body {
       span {
         font-size: 1.4rem;
       }
+    }
+  }
+}
+
+.content {
+  padding: 4rem;
+
+  h1 {
+    margin-bottom: 4rem;
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+
+  .sneakers {
+    display: flex;
+    gap: 4rem;
+  }
+}
+
+.card {
+  width: 22rem;
+  padding: 3rem;
+  border: 1px solid #F3F3F3;
+  border-radius: 40px;
+
+  .cardImage {
+    margin-bottom: 1.4rem;
+  }
+
+  .cardHeading {
+    margin-bottom: 1.4rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+
+  .cardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cardPrice {
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-size: 1.2rem;
+        color: #BDBDBD;
+        text-transform: uppercase;
+      }
+
+      b {
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+    }
+
+    .cardBtn {
+      width: 3.2rem;
+      height: 3.2rem;
+      cursor: pointer;
+      background: #FFFFFF;
+      border: none;
+      border-radius: 8px;
     }
   }
 }
