@@ -40,6 +40,10 @@ function App() {
 
                 <div className="sneakers">
                     <div className="card">
+                        <div className="favorite">
+                            <img src={'/react-sneakers/img/unliked.svg'}
+                                 alt="Unliked" />
+                        </div>
                         <img className="cardImage" width={133}
                              src={'/react-sneakers/img/sneakers/1.jpg'}
                              alt="Nike Blazer Mid Suede" />

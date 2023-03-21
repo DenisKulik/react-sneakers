@@ -120,9 +120,23 @@ a {
 
 .card {
   width: 22rem;
+  position: relative;
   padding: 3rem;
   border: 1px solid #F3F3F3;
   border-radius: 40px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .favorite {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    cursor: pointer;
+  }
 
   .cardImage {
     margin-bottom: 1.4rem;
