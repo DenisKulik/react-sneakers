@@ -1,5 +1,9 @@
 # React Sneakers
 
+![CI](https://github.com/DenisKulik/react-sneakers/actions/workflows/github-actions.yml/badge.svg)
+
+[Demo](https://deniskulik.github.io/react-sneakers/)
+
 ## Available Scripts
 
 In the project directory, you can run:
