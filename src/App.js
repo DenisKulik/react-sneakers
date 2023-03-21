@@ -15,18 +15,28 @@ function App() {
                 <ul className="headerRight">
                     <li>
                         <img width={18} height={18}
-                             src={'/react-sneakers/img/cart.svg'} alt="cart" />
+                             src={'/react-sneakers/img/cart.svg'} alt="Cart" />
                         <span>1205 руб.</span>
                     </li>
                     <li>
                         <img width={18} height={18}
-                             src={'/react-sneakers/img/user.svg'} alt="" />
+                             src={'/react-sneakers/img/user.svg'} alt="User" />
                     </li>
                 </ul>
             </header>
 
             <div className="content">
-                <h1>Все кроссовки</h1>
+                <div className="innerContent">
+                    <h1>Все кроссовки</h1>
+
+                    <div className="search">
+                        <img width={18} height={18}
+                             src={'/react-sneakers/img/search.svg'}
+                             alt="Search" />
+                        <input type="text" placeholder="Поиск..." />
+                    </div>
+                </div>
+
 
                 <div className="sneakers">
                     <div className="card">
