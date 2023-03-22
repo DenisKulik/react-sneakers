@@ -1,3 +1,4 @@
+import Header from './components/Header';
 import Card from './components/Card';
 
 function App() {
@@ -68,31 +69,7 @@ function App() {
 
                 </div>
             </div>
-
-            <header className="header">
-                <div className="headerLeft">
-                    <img width={40} height={40}
-                         src={'/react-sneakers/img/logo.png'}
-                         alt="Logotype" />
-                    <div className="headerInfo">
-                        <h3>React Sneakers</h3>
-                        <p>Магазин лучших кроссовок</p>
-                    </div>
-                </div>
-
-                <ul className="headerRight">
-                    <li>
-                        <img width={18} height={18}
-                             src={'/react-sneakers/img/cart.svg'} alt="Cart" />
-                        <span>1205 руб.</span>
-                    </li>
-                    <li>
-                        <img width={18} height={18}
-                             src={'/react-sneakers/img/user.svg'} alt="User" />
-                    </li>
-                </ul>
-            </header>
-
+            <Header />
             <div className="content">
                 <div className="innerContent">
                     <h1>Все кроссовки</h1>
@@ -104,7 +81,6 @@ function App() {
                         <input type="text" placeholder="Поиск..." />
                     </div>
                 </div>
-
 
                 <div className="sneakers">
                     <Card />
