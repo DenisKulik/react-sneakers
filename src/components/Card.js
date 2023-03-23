@@ -1,4 +1,6 @@
-function Card() {
+function Card(props) {
+    const { img, title, price } = props;
+
     return (
         <div className="card">
             <div className="favorite">
@@ -6,14 +8,13 @@ function Card() {
                      alt="Unliked" />
             </div>
             <img className="cardImage" width={133}
-                 src={'/react-sneakers/img/sneakers/1.jpg'}
-                 alt="Nike Blazer Mid Suede" />
-            <h5 className="cardHeading">Мужские Кроссовки Nike
-                Blazer Mid Suede</h5>
+                 src={img}
+                 alt={title} />
+            <h5 className="cardHeading">{title}</h5>
             <div className="cardBottom">
                 <div className="cardPrice">
                     <span>Цена:</span>
-                    <b>12 999 руб.</b>
+                    <b>{price} руб.</b>
                 </div>
                 <button className="cardBtn">
                     <img src={'/react-sneakers/img/btn-plus.svg'}
