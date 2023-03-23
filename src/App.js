@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import Card from './components/Card/Card';
+import Card from './components/Card';
 
 const sneakers = [
     {
