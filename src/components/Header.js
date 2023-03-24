@@ -1,4 +1,4 @@
-function Header() {
+function Header({ onOpenCart }) {
     return (
         <header className="header">
             <div className="headerLeft">
@@ -12,7 +12,7 @@ function Header() {
             </div>
 
             <ul className="headerRight">
-                <li>
+                <li onClick={onOpenCart}>
                     <img width={18} height={18}
                          src={'/react-sneakers/img/cart.svg'} alt="Cart" />
                     <span>1205 руб.</span>

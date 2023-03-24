@@ -1,6 +1,7 @@
 import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Card from './components/Card';
+import { useState } from 'react';
 
 const sneakers = [
     {
@@ -30,10 +31,15 @@ const sneakers = [
 ];
 
 function App() {
+    const [ cartOpened, setCartOpened ] = useState(false);
+
     return (
         <div className="wrapper">
-            <Drawer />
-            <Header />
+            {
+                cartOpened &&
+                <Drawer onClose={() => setCartOpened(false)} />
+            }
+            <Header onOpenCart={() => setCartOpened(true)} />
             <div className="content">
                 <div className="innerContent">
                     <h1>Все кроссовки</h1>

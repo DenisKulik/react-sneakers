@@ -227,6 +227,10 @@ a {
       align-items: center;
       margin-right: 3rem;
 
+      &:first-child {
+        cursor: pointer;
+      }
+
       img {
         margin-right: 1rem;
       }

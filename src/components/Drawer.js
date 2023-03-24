@@ -1,10 +1,11 @@
-function Drawer() {
+function Drawer({ onClose }) {
     return (
-        <div style={{ display: 'none' }} className="overlay">
+        <div className="overlay">
             <div className="drawer">
                 <h2>
                     Корзина
-                    <img className="closeBtn"
+                    <img onClick={onClose}
+                         className="closeBtn"
                          src={'/react-sneakers/img/btn-remove.svg'}
                          alt="Close" />
                 </h2>
