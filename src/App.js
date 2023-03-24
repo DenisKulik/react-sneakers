@@ -1,37 +1,25 @@
 import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Card from './components/Card';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const sneakers = [
-    {
-        id: 1,
-        title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-        img: '/react-sneakers/img/sneakers/1.jpg',
-        price: 12_999,
-    },
-    {
-        id: 2,
-        title: 'Мужские Кроссовки Nike Air Max 270',
-        img: '/react-sneakers/img/sneakers/2.jpg',
-        price: 15_699,
-    },
-    {
-        id: 3,
-        title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-        img: '/react-sneakers/img/sneakers/3.jpg',
-        price: 8_499,
-    },
-    {
-        id: 4,
-        title: 'Кроссовки Puma X Aka Boku Future Rider',
-        img: '/react-sneakers/img/sneakers/4.jpg',
-        price: 8_999,
-    }
-];
+const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io/items';
 
 function App() {
+    const [ items, setItems ] = useState([]);
     const [ cartOpened, setCartOpened ] = useState(false);
+
+    useEffect(() => {
+        (async function () {
+            try {
+                const response = await fetch(API_URL);
+                const items = await response.json();
+                setItems(items);
+            } catch (err) {
+                throw new Error(err.message);
+            }
+        })();
+    }, []);
 
     return (
         <div className="wrapper">
@@ -54,7 +42,7 @@ function App() {
 
                 <div className="sneakers">
                     {
-                        sneakers.map(
+                        items.map(
                             (item) => (
                                 <Card key={item.id} img={item.img}
                                       title={item.title}
