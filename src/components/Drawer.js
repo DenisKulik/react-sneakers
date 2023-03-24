@@ -1,4 +1,4 @@
-function Drawer({ onClose }) {
+function Drawer({ onClose, items = [] }) {
     return (
         <div className="overlay">
             <div className="drawer">
@@ -11,35 +11,24 @@ function Drawer({ onClose }) {
                 </h2>
 
                 <div className="items">
-                    <div className="cartItem">
-                        <div
-                            style={{ backgroundImage: 'url(/react-sneakers/img/sneakers/2.jpg)' }}
-                            className="cartItemImg">
+                    {
+                        items.map((item) => (
+                            <div className="cartItem">
+                                <div
+                                    style={{ backgroundImage: `url(${item.img})` }}
+                                    className="cartItemImg">
 
-                        </div>
-                        <div className="cartItemInner">
-                            <p>Мужские Кроссовки Nike Air Max 270</p>
-                            <b>12 999 руб.</b>
-                        </div>
-                        <img className="removeBtn"
-                             src={'/react-sneakers/img/btn-remove.svg'}
-                             alt="Remove" />
-                    </div>
-
-                    <div className="cartItem">
-                        <div
-                            style={{ backgroundImage: 'url(/react-sneakers/img/sneakers/4.jpg)' }}
-                            className="cartItemImg">
-
-                        </div>
-                        <div className="cartItemInner">
-                            <p>Кроссовки Puma X Aka Boku Future Rider</p>
-                            <b>8 999 руб.</b>
-                        </div>
-                        <img className="removeBtn"
-                             src={'/react-sneakers/img/btn-remove.svg'}
-                             alt="Remove" />
-                    </div>
+                                </div>
+                                <div className="cartItemInner">
+                                    <p>{item.title}</p>
+                                    <b>{item.price} руб.</b>
+                                </div>
+                                <img className="removeBtn"
+                                     src={'/react-sneakers/img/btn-remove.svg'}
+                                     alt="Remove" />
+                            </div>
+                        ))
+                    }
                 </div>
 
                 <div className="cartTotal">

@@ -7,6 +7,7 @@ const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io/items';
 
 function App() {
     const [ items, setItems ] = useState([]);
+    const [ cartItems, setCartItems ] = useState([]);
     const [ cartOpened, setCartOpened ] = useState(false);
 
     useEffect(() => {
@@ -21,11 +22,21 @@ function App() {
         })();
     }, []);
 
+    const addToCart = (curItem) => {
+        const curItemIdx = cartItems.findIndex(
+            (item) => JSON.stringify(item) === JSON.stringify(curItem));
+
+        curItemIdx === -1 ? setCartItems(prev => [ ...prev, curItem ]) :
+            setCartItems(
+                prev => [ ...prev ].filter((_, idx) => idx !== curItemIdx));
+    };
+
     return (
         <div className="wrapper">
             {
                 cartOpened &&
-                <Drawer onClose={() => setCartOpened(false)} />
+                <Drawer onClose={() => setCartOpened(false)}
+                        items={cartItems} />
             }
             <Header onOpenCart={() => setCartOpened(true)} />
             <div className="content">
@@ -47,6 +58,8 @@ function App() {
                                 <Card key={item.id} img={item.img}
                                       title={item.title}
                                       price={item.price}
+                                      onClickAddToCart={(product) => addToCart(
+                                          product)}
                                 />
                             )
                         )

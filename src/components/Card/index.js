@@ -2,9 +2,13 @@ import styles from './Card.module.scss';
 import { useState } from 'react';
 
 function Card(props) {
-    const { img, title, price } = props;
+    const { img, title, price, onClickAddToCart } = props;
     const [ isAdded, setIsAdded ] = useState(false);
-    const addToCart = () => setIsAdded(!isAdded);
+    const handleClickAddToCart = () => {
+        onClickAddToCart({ img, title, price });
+        setIsAdded(!isAdded);
+    };
+
 
     return (
         <div className={styles.card}>
@@ -21,7 +25,7 @@ function Card(props) {
                     <span>Цена:</span>
                     <b>{price} руб.</b>
                 </div>
-                <img onClick={addToCart}
+                <img onClick={handleClickAddToCart}
                      className={styles.addToCartBtn}
                      src={`/react-sneakers/img/btn-${isAdded ? 'checked' :
                          'plus'}.svg`}
