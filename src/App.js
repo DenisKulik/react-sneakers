@@ -52,7 +52,8 @@ function App() {
                             (item) => (
                                 <Card key={item.id} img={item.img}
                                       title={item.title}
-                                      price={item.price} />
+                                      price={item.price}
+                                />
                             )
                         )
                     }
