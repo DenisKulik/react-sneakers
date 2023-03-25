@@ -4,16 +4,21 @@ import { useState } from 'react';
 function Card(props) {
     const { img, title, price, onClickAddToCart } = props;
     const [ isAdded, setIsAdded ] = useState(false);
+    const [ isFavorite, setIsFavorite ] = useState(false);
+
     const handleClickAddToCart = () => {
         onClickAddToCart({ img, title, price });
         setIsAdded(!isAdded);
     };
 
+    const onClickFavorite = () => setIsFavorite(!isFavorite);
 
     return (
         <div className={styles.card}>
             <div className={styles.favorite}>
-                <img src={'/react-sneakers/img/unliked.svg'}
+                <img onClick={onClickFavorite}
+                     src={`/react-sneakers/img/${isFavorite ? 'liked' :
+                         'unliked'}.svg`}
                      alt="Unliked" />
             </div>
             <img className={styles.cardImage} width={133}
