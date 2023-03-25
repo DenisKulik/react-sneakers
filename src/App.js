@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import Card from './components/Card';
+import Home from './pages/Home';
 
 const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io';
 
@@ -65,42 +66,16 @@ function App() {
                         items={cartItems} />
             }
             <Header onOpenCart={() => setCartOpened(true)} />
-            <div className="content">
-                <div className="innerContent">
-                    <h1>{searchValue ? `Поиск по запросу: «${searchValue}»` :
-                        'Все кроссовки'}</h1>
-
-                    <div className="search">
-                        <img width={18} height={18}
-                             src={'/react-sneakers/img/search.svg'}
-                             alt="Search" />
-                        {searchValue && <img onClick={clearSearchInput}
-                                             className="clearBtn"
-                                             src={'/react-sneakers/img/btn-remove.svg'}
-                                             alt="Clear" />}
-                        <input onChange={onChangeSearchInput}
-                               value={searchValue} type="text"
-                               placeholder="Поиск..." />
-                    </div>
-                </div>
-
-                <div className="sneakers">
-                    {
-                        items.filter(item => item.title.toLowerCase().includes(
-                            searchValue.trim().toLowerCase()))
-                             .map(
-                                 (item) => (
-                                     <Card key={item.id} img={item.img}
-                                           title={item.title}
-                                           price={item.price}
-                                           onClickAddToCart={(product) => addToCart(
-                                               product)}
-                                     />
-                                 )
-                             )
-                    }
-                </div>
-            </div>
+            <Routes>
+                <Route path="/react-sneakers" exact>
+                    <Route index element={<Home items={items}
+                                                searchValue={searchValue}
+                                                setSearchValue={setSearchValue}
+                                                onChangeSearchInput={onChangeSearchInput}
+                                                clearSearchInput={clearSearchInput}
+                                                addToCart={addToCart} />} />
+                </Route>
+            </Routes>
         </div>
     );
 }
