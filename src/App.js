@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Card from './components/Card';
-import { useEffect, useState } from 'react';
 
-const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io/items';
+const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io';
 
 function App() {
     const [ items, setItems ] = useState([]);
@@ -14,9 +15,13 @@ function App() {
     useEffect(() => {
         (async function () {
             try {
-                const response = await fetch(API_URL);
-                const items = await response.json();
+                const responseItems = await axios.get(`${API_URL}/items`);
+                const items = await responseItems.data;
                 setItems(items);
+
+                const responseCartItems = await axios.get(`${API_URL}/cart`);
+                const cartItems = await responseCartItems.data;
+                setCartItems(cartItems);
             } catch (err) {
                 throw new Error(err.message);
             }
@@ -24,12 +29,25 @@ function App() {
     }, []);
 
     const addToCart = (curItem) => {
-        const curItemIdx = cartItems.findIndex(
-            (item) => JSON.stringify(item) === JSON.stringify(curItem));
+        (async function () {
+            try {
+                await axios.post(`${API_URL}/cart`, curItem);
+                setCartItems(prev => [ ...prev, curItem ]);
+            } catch (err) {
+                throw new Error(err.message);
+            }
+        })();
+    };
 
-        curItemIdx === -1 ? setCartItems(prev => [ ...prev, curItem ]) :
-            setCartItems(
-                prev => [ ...prev ].filter((_, idx) => idx !== curItemIdx));
+    const removeCartItem = (id) => {
+        (async function () {
+            try {
+                await axios.delete(`${API_URL}/cart/${id}`);
+                setCartItems(prev => prev.filter(item => item.id !== id));
+            } catch (err) {
+                throw new Error(err.message);
+            }
+        })();
     };
 
     const onChangeSearchInput = (event) => {
@@ -43,6 +61,7 @@ function App() {
             {
                 cartOpened &&
                 <Drawer onClose={() => setCartOpened(false)}
+                        onRemove={removeCartItem}
                         items={cartItems} />
             }
             <Header onOpenCart={() => setCartOpened(true)} />
