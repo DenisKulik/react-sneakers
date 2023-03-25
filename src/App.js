@@ -8,6 +8,7 @@ const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io/items';
 function App() {
     const [ items, setItems ] = useState([]);
     const [ cartItems, setCartItems ] = useState([]);
+    const [ searchValue, setSearchValue ] = useState('');
     const [ cartOpened, setCartOpened ] = useState(false);
 
     useEffect(() => {
@@ -31,6 +32,12 @@ function App() {
                 prev => [ ...prev ].filter((_, idx) => idx !== curItemIdx));
     };
 
+    const onChangeSearchInput = (event) => {
+        setSearchValue(event.target.value);
+    };
+
+    const clearSearchInput = () => setSearchValue('');
+
     return (
         <div className="wrapper">
             {
@@ -41,28 +48,37 @@ function App() {
             <Header onOpenCart={() => setCartOpened(true)} />
             <div className="content">
                 <div className="innerContent">
-                    <h1>Все кроссовки</h1>
+                    <h1>{searchValue ? `Поиск по запросу: «${searchValue}»` :
+                        'Все кроссовки'}</h1>
 
                     <div className="search">
                         <img width={18} height={18}
                              src={'/react-sneakers/img/search.svg'}
                              alt="Search" />
-                        <input type="text" placeholder="Поиск..." />
+                        {searchValue && <img onClick={clearSearchInput}
+                                             className="clearBtn"
+                                             src={'/react-sneakers/img/btn-remove.svg'}
+                                             alt="Clear" />}
+                        <input onChange={onChangeSearchInput}
+                               value={searchValue} type="text"
+                               placeholder="Поиск..." />
                     </div>
                 </div>
 
                 <div className="sneakers">
                     {
-                        items.map(
-                            (item) => (
-                                <Card key={item.id} img={item.img}
-                                      title={item.title}
-                                      price={item.price}
-                                      onClickAddToCart={(product) => addToCart(
-                                          product)}
-                                />
-                            )
-                        )
+                        items.filter(item => item.title.toLowerCase().includes(
+                            searchValue.trim().toLowerCase()))
+                             .map(
+                                 (item) => (
+                                     <Card key={item.id} img={item.img}
+                                           title={item.title}
+                                           price={item.price}
+                                           onClickAddToCart={(product) => addToCart(
+                                               product)}
+                                     />
+                                 )
+                             )
                     }
                 </div>
             </div>

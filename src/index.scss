@@ -259,9 +259,19 @@ a {
     .search {
       display: flex;
       align-items: center;
+      position: relative;
       padding: 0 1.5rem;
       border: 1px solid #F3F3F3;
       border-radius: 10px;
+
+      .clearBtn {
+        width: 1.8rem;
+        height: 1.8rem;
+        position: absolute;
+        top: 1.3rem;
+        right: 1.5rem;
+        cursor: pointer;
+      }
 
       input {
         width: 20rem;
@@ -275,7 +285,7 @@ a {
   .sneakers {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     gap: 4rem;
   }
 }
