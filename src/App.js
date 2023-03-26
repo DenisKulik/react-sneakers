@@ -12,12 +12,15 @@ function App() {
     const [ cartItems, setCartItems ] = useState([]);
     const [ searchValue, setSearchValue ] = useState('');
     const [ cartOpened, setCartOpened ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
         (async function () {
             try {
                 const responseCartItems = await axios.get(`${API_URL}/cart`);
                 const responseItems = await axios.get(`${API_URL}/items`);
+
+                setIsLoading(false);
 
                 setCartItems(responseCartItems.data);
                 setItems(responseItems.data);
@@ -83,6 +86,7 @@ function App() {
                               onChangeSearchInput={onChangeSearchInput}
                               clearSearchInput={clearSearchInput}
                               addToCart={addToCart}
+                              isLoading={isLoading}
                         />}
                     />
                 </Route>

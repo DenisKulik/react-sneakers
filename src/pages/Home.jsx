@@ -7,8 +7,38 @@ function Home(props) {
         searchValue,
         onChangeSearchInput,
         clearSearchInput,
-        addToCart
+        addToCart,
+        isLoading
     } = props;
+
+    const renderItems = () => {
+        const filteredItems = () => {
+            console.log(items.filter(item => item.title.toLowerCase().includes(
+                searchValue.trim().toLowerCase())));
+            return items.filter(item => item.title.toLowerCase().includes(
+                searchValue.trim().toLowerCase()));
+        };
+
+        return (isLoading ?
+                [ ...Array(12).fill(<Card isLoading={props.isLoading} />) ] :
+                filteredItems().map((item) => (
+                        <Card key={item.id}
+                              id={item.id}
+                              img={item.img}
+                              title={item.title}
+                              price={item.price}
+                              onClickAddToCart={(product) => addToCart(
+                                  product)}
+                              addedToCart={cartItems.some(
+                                  (product) => Number(product.id) ===
+                                      Number(item.id))}
+                              isLoading={isLoading}
+                        />
+                    )
+                )
+        );
+    };
+
     return (
         <div className="content">
             <div className="innerContent">
@@ -30,25 +60,7 @@ function Home(props) {
             </div>
 
             <div className="sneakers">
-                {
-                    items.filter(item => item.title.toLowerCase().includes(
-                        searchValue.trim().toLowerCase()))
-                         .map(
-                             (item) => (
-                                 <Card key={item.id}
-                                       id={item.id}
-                                       img={item.img}
-                                       title={item.title}
-                                       price={item.price}
-                                       onClickAddToCart={(product) => addToCart(
-                                           product)}
-                                       addedToCart={cartItems.some(
-                                           (product) => Number(product.id) ===
-                                               Number(item.id))}
-                                 />
-                             )
-                         )
-                }
+                {renderItems()}
             </div>
         </div>
     );
