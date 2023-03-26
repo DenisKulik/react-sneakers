@@ -34,7 +34,9 @@ function Home(props) {
                         searchValue.trim().toLowerCase()))
                          .map(
                              (item) => (
-                                 <Card key={item.id} img={item.img}
+                                 <Card key={item.id}
+                                       id={item.id}
+                                       img={item.img}
                                        title={item.title}
                                        price={item.price}
                                        onClickAddToCart={(product) => addToCart(

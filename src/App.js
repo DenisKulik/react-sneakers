@@ -32,8 +32,17 @@ function App() {
     const addToCart = (curItem) => {
         (async function () {
             try {
-                await axios.post(`${API_URL}/cart`, curItem);
-                setCartItems(prev => [ ...prev, curItem ]);
+                console.log(cartItems);
+                if (cartItems.find(
+                    (item) => Number(item.id) === Number(curItem.id))) {
+                    await axios.delete(`${API_URL}/cart/${curItem.id}`);
+                    setCartItems(
+                        prev => prev.filter(
+                            (item) => Number(item.id) !== Number(curItem.id)));
+                } else {
+                    await axios.post(`${API_URL}/cart`, curItem);
+                    setCartItems(prev => [ ...prev, curItem ]);
+                }
             } catch (err) {
                 throw new Error(err.message);
             }
@@ -68,12 +77,15 @@ function App() {
             <Header onOpenCart={() => setCartOpened(true)} />
             <Routes>
                 <Route path="/react-sneakers" exact>
-                    <Route index element={<Home items={items}
-                                                searchValue={searchValue}
-                                                setSearchValue={setSearchValue}
-                                                onChangeSearchInput={onChangeSearchInput}
-                                                clearSearchInput={clearSearchInput}
-                                                addToCart={addToCart} />} />
+                    <Route index element={
+                        <Home items={items}
+                              searchValue={searchValue}
+                              setSearchValue={setSearchValue}
+                              onChangeSearchInput={onChangeSearchInput}
+                              clearSearchInput={clearSearchInput}
+                              addToCart={addToCart}
+                        />}
+                    />
                 </Route>
             </Routes>
         </div>
