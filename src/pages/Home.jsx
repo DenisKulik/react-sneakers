@@ -3,6 +3,7 @@ import Card from '../components/Card';
 function Home(props) {
     const {
         items,
+        cartItems,
         searchValue,
         onChangeSearchInput,
         clearSearchInput,
@@ -40,7 +41,11 @@ function Home(props) {
                                        title={item.title}
                                        price={item.price}
                                        onClickAddToCart={(product) => addToCart(
-                                           product)} />
+                                           product)}
+                                       addedToCart={cartItems.some(
+                                           (product) => Number(product.id) ===
+                                               Number(item.id))}
+                                 />
                              )
                          )
                 }

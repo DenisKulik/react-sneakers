@@ -2,8 +2,15 @@ import styles from './Card.module.scss';
 import { useState } from 'react';
 
 function Card(props) {
-    const { id, img, title, price, onClickAddToCart } = props;
-    const [ isAdded, setIsAdded ] = useState(false);
+    const {
+        id,
+        img,
+        title,
+        price,
+        onClickAddToCart,
+        addedToCart = false
+    } = props;
+    const [ isAdded, setIsAdded ] = useState(addedToCart);
     const [ isFavorite, setIsFavorite ] = useState(false);
 
     const handleClickAddToCart = () => {

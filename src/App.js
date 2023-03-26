@@ -16,13 +16,11 @@ function App() {
     useEffect(() => {
         (async function () {
             try {
-                const responseItems = await axios.get(`${API_URL}/items`);
-                const items = await responseItems.data;
-                setItems(items);
-
                 const responseCartItems = await axios.get(`${API_URL}/cart`);
-                const cartItems = await responseCartItems.data;
-                setCartItems(cartItems);
+                const responseItems = await axios.get(`${API_URL}/items`);
+
+                setCartItems(responseCartItems.data);
+                setItems(responseItems.data);
             } catch (err) {
                 throw new Error(err.message);
             }
@@ -79,6 +77,7 @@ function App() {
                 <Route path="/react-sneakers" exact>
                     <Route index element={
                         <Home items={items}
+                              cartItems={cartItems}
                               searchValue={searchValue}
                               setSearchValue={setSearchValue}
                               onChangeSearchInput={onChangeSearchInput}
