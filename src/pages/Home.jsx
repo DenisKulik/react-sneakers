@@ -3,7 +3,6 @@ import Card from '../components/Card';
 function Home(props) {
     const {
         items,
-        cartItems,
         searchValue,
         onChangeSearchInput,
         clearSearchInput,
@@ -13,8 +12,6 @@ function Home(props) {
 
     const renderItems = () => {
         const filteredItems = () => {
-            console.log(items.filter(item => item.title.toLowerCase().includes(
-                searchValue.trim().toLowerCase())));
             return items.filter(item => item.title.toLowerCase().includes(
                 searchValue.trim().toLowerCase()));
         };
@@ -29,9 +26,6 @@ function Home(props) {
                               price={item.price}
                               onClickAddToCart={(product) => addToCart(
                                   product)}
-                              addedToCart={cartItems.some(
-                                  (product) => Number(product.id) ===
-                                      Number(item.id))}
                               isLoading={isLoading}
                         />
                     )

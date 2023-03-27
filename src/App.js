@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header';
@@ -6,6 +6,8 @@ import Drawer from './components/Drawer';
 import Home from './pages/Home';
 
 const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io';
+
+export const AppContext = createContext({});
 
 function App() {
     const [ items, setItems ] = useState([]);
@@ -67,31 +69,35 @@ function App() {
 
     const clearSearchInput = () => setSearchValue('');
 
+    const isAddedItem = (id) => {
+        return cartItems.some((item) => Number(item.id) === Number(id));
+    };
+
     return (
-        <div className="wrapper">
-            {
-                cartOpened &&
-                <Drawer onClose={() => setCartOpened(false)}
-                        onRemove={removeCartItem}
-                        items={cartItems} />
-            }
-            <Header onOpenCart={() => setCartOpened(true)} />
-            <Routes>
-                <Route path="/react-sneakers" exact>
-                    <Route index element={
-                        <Home items={items}
-                              cartItems={cartItems}
-                              searchValue={searchValue}
-                              setSearchValue={setSearchValue}
-                              onChangeSearchInput={onChangeSearchInput}
-                              clearSearchInput={clearSearchInput}
-                              addToCart={addToCart}
-                              isLoading={isLoading}
-                        />}
-                    />
-                </Route>
-            </Routes>
-        </div>
+        <AppContext.Provider value={{ items, cartItems, isAddedItem }}>
+            <div className="wrapper">
+                {
+                    cartOpened &&
+                    <Drawer onClose={() => setCartOpened(false)}
+                            onRemove={removeCartItem}
+                            cartItems={cartItems} />
+                }
+                <Header onOpenCart={() => setCartOpened(true)} />
+                <Routes>
+                    <Route path="/react-sneakers" exact>
+                        <Route index element={
+                            <Home items={items}
+                                  searchValue={searchValue}
+                                  setSearchValue={setSearchValue}
+                                  onChangeSearchInput={onChangeSearchInput}
+                                  clearSearchInput={clearSearchInput}
+                                  addToCart={addToCart}
+                                  isLoading={isLoading} />}
+                        />
+                    </Route>
+                </Routes>
+            </div>
+        </AppContext.Provider>
     );
 }
 

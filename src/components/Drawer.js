@@ -1,4 +1,4 @@
-function Drawer({ onClose, onRemove, items = [] }) {
+function Drawer({ onClose, onRemove, cartItems = [] }) {
     return (
         <div className="overlay">
             <div className="drawer">
@@ -11,12 +11,12 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 </h2>
 
                 {
-                    items.length > 0 ?
+                    cartItems.length > 0 ?
                         (
                             <>
                                 <div className="items">
                                     {
-                                        items.map((item) => (
+                                        cartItems.map((item) => (
                                             <div key={item.id}
                                                  className="cartItem">
                                                 <div

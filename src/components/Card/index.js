@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import styles from './Card.module.scss';
+import { AppContext } from '../../App';
 
 function Card(props) {
     const {
@@ -9,15 +10,13 @@ function Card(props) {
         title,
         price,
         onClickAddToCart,
-        addedToCart = false,
         isLoading = false
     } = props;
-    const [ isAdded, setIsAdded ] = useState(addedToCart);
+    const { isAddedItem } = useContext(AppContext);
     const [ isFavorite, setIsFavorite ] = useState(false);
 
     const handleClickAddToCart = () => {
         onClickAddToCart({ id, img, title, price });
-        setIsAdded(!isAdded);
     };
 
     const onClickFavorite = () => setIsFavorite(!isFavorite);
@@ -60,7 +59,8 @@ function Card(props) {
                             </div>
                             <img onClick={handleClickAddToCart}
                                  className={styles.addToCartBtn}
-                                 src={`/react-sneakers/img/btn-${isAdded ?
+                                 src={`/react-sneakers/img/btn-${isAddedItem(
+                                     id) ?
                                      'checked' :
                                      'plus'}.svg`}
                                  alt="Add to cart" />
