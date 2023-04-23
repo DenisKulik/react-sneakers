@@ -3,6 +3,8 @@ import { useContext, useState } from 'react';
 import { API_URL, AppContext } from '../App';
 import axios from 'axios';
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 function Drawer({ onClose, onRemove, cartItems = [] }) {
     const { setCartItems } = useContext(AppContext);
     const [ isOrderCompleted, setIsOrderCompleted ] = useState(false);
@@ -14,6 +16,7 @@ function Drawer({ onClose, onRemove, cartItems = [] }) {
 
             for (let i = 0; i < cartItems.length; i++) {
                 await axios.delete(`${API_URL}/cart/${i + 1}`);
+                await delay(1000);
             }
         } catch (e) {
             alert(`${e.message()}. Ошибка при создании заказа :(`);
