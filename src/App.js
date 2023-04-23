@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Drawer from './components/Drawer';
 import Home from './pages/Home';
 
-const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io';
+export const API_URL = 'https://641d7c514366dd7def3efa0f.mockapi.io';
 
 export const AppContext = createContext({});
 
@@ -74,7 +74,14 @@ function App() {
     };
 
     return (
-        <AppContext.Provider value={{ items, cartItems, isAddedItem }}>
+        <AppContext.Provider
+            value={{
+                items,
+                cartItems,
+                isAddedItem,
+                setCartOpened,
+                setCartItems
+            }}>
             <div className="wrapper">
                 {
                     cartOpened &&

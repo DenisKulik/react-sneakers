@@ -1,4 +1,25 @@
+import Info from './Info';
+import { useContext, useState } from 'react';
+import { API_URL, AppContext } from '../App';
+import axios from 'axios';
+
 function Drawer({ onClose, onRemove, cartItems = [] }) {
+    const { setCartItems } = useContext(AppContext);
+    const [ isOrderCompleted, setIsOrderCompleted ] = useState(false);
+
+    const onClickOrderHandler = async () => {
+        try {
+            setIsOrderCompleted(true);
+            setCartItems([]);
+
+            for (let i = 0; i < cartItems.length; i++) {
+                await axios.delete(`${API_URL}/cart/${i + 1}`);
+            }
+        } catch (e) {
+            alert(`${e.message()}. Ошибка при создании заказа :(`);
+        }
+    };
+
     return (
         <div className="overlay">
             <div className="drawer">
@@ -52,7 +73,8 @@ function Drawer({ onClose, onRemove, cartItems = [] }) {
                                         </li>
                                     </ul>
 
-                                    <button className="greenBtn">
+                                    <button onClick={onClickOrderHandler}
+                                            className="greenBtn">
                                         Оформить заказ
                                         <img width={13} height={12}
                                              src={'/react-sneakers/img/arrow.svg'}
@@ -63,23 +85,15 @@ function Drawer({ onClose, onRemove, cartItems = [] }) {
                         )
                         :
                         (
-                            <div
-                                className="cartEmpty">
-                                <img width="120px" height="120px"
-                                     src={'/react-sneakers/img/empty-cart.jpg'}
-                                     alt="Empty" />
-                                <h2>Корзина пустая</h2>
-                                <p>
-                                    Добавьте хотя бы одну пару кроссовок, чтобы
-                                    сделать
-                                    заказ.
-                                </p>
-                                <button onClick={onClose} className="greenBtn">
-                                    <img src={'/react-sneakers/img/arrow.svg'}
-                                         alt="Arrow" />
-                                    Вернуться назад
-                                </button>
-                            </div>
+                            <Info
+                                title={isOrderCompleted ? 'Заказ оформлен!' :
+                                    'Корзина пустая'}
+                                description={isOrderCompleted ?
+                                    'Ваш заказ #1 скоро будет передан курьерской доставке' :
+                                    'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'}
+                                image={isOrderCompleted ?
+                                    '/react-sneakers/img/complete-order.jpg' :
+                                    '/react-sneakers/img/empty-cart.jpg'} />
                         )
                 }
             </div>
