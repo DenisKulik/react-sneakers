@@ -6,7 +6,6 @@ import { AppContext } from '../../App';
 function Card(props) {
     const {
         id,
-        parentId,
         img,
         title,
         price,
