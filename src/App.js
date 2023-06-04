@@ -76,12 +76,11 @@ function App() {
             }}
         >
             <div className="wrapper">
-                {
-                    cartOpened && <Drawer
-                        onClose={() => setCartOpened(false)}
-                        onRemove={removeCartItem}
-                    />
-                }
+                <Drawer
+                    onClose={() => setCartOpened(false)}
+                    onRemove={removeCartItem}
+                    cartOpened={cartOpened}
+                />
                 <Header onOpenCart={() => setCartOpened(true)} />
                 <Routes>
                     <Route path="/react-sneakers" exact>
