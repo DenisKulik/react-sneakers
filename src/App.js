@@ -21,9 +21,7 @@ function App() {
             try {
                 const responseCartItems = await axios.get(`${API_URL}/cart`);
                 const responseItems = await axios.get(`${API_URL}/items`);
-
                 setIsLoading(false);
-
                 setCartItems(responseCartItems.data);
                 setItems(responseItems.data);
             } catch (err) {
@@ -33,15 +31,13 @@ function App() {
     }, []);
 
     const addToCart = (curItem) => {
-        (async function () {
+        (async () => {
             try {
-                console.log(cartItems);
                 if (cartItems.find(
                     (item) => Number(item.id) === Number(curItem.id))) {
                     await axios.delete(`${API_URL}/cart/${curItem.id}`);
-                    setCartItems(
-                        prev => prev.filter(
-                            (item) => Number(item.id) !== Number(curItem.id)));
+                    setCartItems(prev => prev.filter(
+                        (item) => Number(item.id) !== Number(curItem.id)));
                 } else {
                     await axios.post(`${API_URL}/cart`, curItem);
                     setCartItems(prev => [ ...prev, curItem ]);
@@ -63,15 +59,11 @@ function App() {
         })();
     };
 
-    const onChangeSearchInput = (event) => {
-        setSearchValue(event.target.value);
-    };
-
+    const onChangeSearchInput = (event) => setSearchValue(event.target.value);
     const clearSearchInput = () => setSearchValue('');
 
-    const isAddedItem = (id) => {
-        return cartItems.some((item) => Number(item.id) === Number(id));
-    };
+    const isAddedItem = (id) => cartItems.some(
+        (item) => Number(item.id) === Number(id));
 
     return (
         <AppContext.Provider
@@ -81,11 +73,11 @@ function App() {
                 isAddedItem,
                 setCartOpened,
                 setCartItems
-            }}>
+            }}
+        >
             <div className="wrapper">
                 {
-                    cartOpened &&
-                    <Drawer
+                    cartOpened && <Drawer
                         onClose={() => setCartOpened(false)}
                         onRemove={removeCartItem}
                     />
@@ -94,19 +86,20 @@ function App() {
                 <Routes>
                     <Route path="/react-sneakers" exact>
                         <Route index element={
-                            <Home items={items}
-                                  searchValue={searchValue}
-                                  setSearchValue={setSearchValue}
-                                  onChangeSearchInput={onChangeSearchInput}
-                                  clearSearchInput={clearSearchInput}
-                                  addToCart={addToCart}
-                                  isLoading={isLoading} />}
+                            <Home
+                                items={items}
+                                searchValue={searchValue}
+                                setSearchValue={setSearchValue}
+                                onChangeSearchInput={onChangeSearchInput}
+                                clearSearchInput={clearSearchInput}
+                                addToCart={addToCart}
+                                isLoading={isLoading}
+                            />}
                         />
                     </Route>
                 </Routes>
             </div>
-        </AppContext.Provider>
-    );
+        </AppContext.Provider>);
 }
 
 export default App;
