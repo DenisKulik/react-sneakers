@@ -19,8 +19,10 @@ function App() {
     useEffect(() => {
         (async function () {
             try {
-                const responseCartItems = await axios.get(`${API_URL}/cart`);
-                const responseItems = await axios.get(`${API_URL}/items`);
+                const [ responseCartItems, responseItems ] = await Promise.all([
+                    axios.get(`${API_URL}/cart`),
+                    axios.get(`${API_URL}/items`)
+                ]);
                 setIsLoading(false);
                 setCartItems(responseCartItems.data);
                 setItems(responseItems.data);
@@ -33,14 +35,17 @@ function App() {
     const addToCart = (curItem) => {
         (async () => {
             try {
-                if (cartItems.find(
-                    (item) => Number(item.id) === Number(curItem.id))) {
-                    await axios.delete(`${API_URL}/cart/${curItem.id}`);
+                const findItem = cartItems.find(
+                    (item) => Number(item.parentId) === Number(curItem.id));
+                if (findItem) {
+                    await axios.delete(`${API_URL}/cart/${findItem.id}`);
                     setCartItems(prev => prev.filter(
-                        (item) => Number(item.id) !== Number(curItem.id)));
+                        (item) => Number(item.parentId) !==
+                            Number(curItem.id)));
                 } else {
-                    await axios.post(`${API_URL}/cart`, curItem);
-                    setCartItems(prev => [ ...prev, curItem ]);
+                    const { data } = await axios.post(`${API_URL}/cart`,
+                        curItem);
+                    setCartItems(prev => [ ...prev, data ]);
                 }
             } catch (err) {
                 throw new Error(err.message);
@@ -52,7 +57,8 @@ function App() {
         (async function () {
             try {
                 await axios.delete(`${API_URL}/cart/${id}`);
-                setCartItems(prev => prev.filter(item => item.id !== id));
+                setCartItems(prev => prev.filter(
+                    item => Number(item.id) !== Number(id)));
             } catch (err) {
                 throw new Error(err.message);
             }
@@ -63,7 +69,7 @@ function App() {
     const clearSearchInput = () => setSearchValue('');
 
     const isAddedItem = (id) => cartItems.some(
-        (item) => Number(item.id) === Number(id));
+        (item) => Number(item.parentId) === Number(id));
 
     return (
         <AppContext.Provider

@@ -6,6 +6,7 @@ import { AppContext } from '../../App';
 function Card(props) {
     const {
         id,
+        parentId,
         img,
         title,
         price,
@@ -16,7 +17,7 @@ function Card(props) {
     const [ isFavorite, setIsFavorite ] = useState(false);
 
     const handleClickAddToCart = () => {
-        onClickAddToCart({ id, img, title, price });
+        onClickAddToCart({ id, parentId: id, img, title, price });
     };
 
     const onClickFavorite = () => setIsFavorite(!isFavorite);
@@ -59,10 +60,10 @@ function Card(props) {
                             </div>
                             <img onClick={handleClickAddToCart}
                                  className={styles.addToCartBtn}
-                                 src={`/react-sneakers/img/btn-${isAddedItem(
-                                     id) ?
-                                     'checked' :
-                                     'plus'}.svg`}
+                                 src={`/react-sneakers/img/btn-${
+                                     isAddedItem(id) ?
+                                         'checked' :
+                                         'plus'}.svg`}
                                  alt="Add to cart" />
                         </div>
                     </>
