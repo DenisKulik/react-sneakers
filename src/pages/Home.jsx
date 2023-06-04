@@ -17,7 +17,9 @@ function Home(props) {
         };
 
         return (isLoading ?
-                [ ...Array(12).fill(<Card isLoading={props.isLoading} />) ] :
+                Array.from({ length: 12 }, (_, index) => (
+                    <Card key={index} isLoading={isLoading} />
+                )) :
                 filteredItems().map((item) => (
                         <Card key={item.id}
                               id={item.id}
